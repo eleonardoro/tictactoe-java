@@ -5,9 +5,9 @@ import br.com.eleonardoro.tictactoe.ui.UI;
 
 public class Game {
 
-	Board board = new Board();
-	Player[] players = new Player[Constants.SYMBOL_PLAYERS.length];
-	private int currentPlayerIndex = 0;
+	private Board board = new Board();
+	private Player[] players = new Player[Constants.SYMBOL_PLAYERS.length];
+	private int currentPlayerIndex = -1;
 	
 	public void play() {
 		
@@ -17,9 +17,41 @@ public class Game {
 			players[i] = createPlayer(i);
 		}
 		
-		board.print();
+		boolean gameEnded = false;
+		Player winner = null;
+		Player currentPlayer = nextPlayer();
 		
-		//UI.readInput("Nome do Jogador:");
+		while(!gameEnded) {
+			board.print();
+			
+			boolean sequenceFound = currentPlayer.play();
+			
+			if(sequenceFound) {
+				gameEnded = true;
+				winner = currentPlayer;
+			}else if(board.isFull()){
+				gameEnded = true;
+			}else {
+				currentPlayer = nextPlayer();
+			}
+		}
+		
+		UI.printNewLine();
+		UI.printNewLine();
+		if(winner == null) {
+			UI.printText("It's a Duce!");
+		} else {
+			UI.printText("The Player '" + winner.getName() + "' won the Game!");
+		}
+		
+		UI.printNewLine();
+		UI.printNewLine();
+		board.print();
+		UI.printNewLine();
+		UI.printNewLine();
+		UI.printText("End of the Game!");
+		
+		
 	}
 	
 	private Player createPlayer(int index) {
@@ -44,10 +76,9 @@ public class Game {
 		
 		if(currentPlayerIndex >= players.length)
 			currentPlayerIndex = 0;
-		
-		return players[currentPlayerIndex];
 		 */
 		
-		return players[(currentPlayerIndex + 1) % players.length];
+		currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+		return players[currentPlayerIndex];
 	}
 }
