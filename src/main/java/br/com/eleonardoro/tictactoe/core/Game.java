@@ -1,6 +1,7 @@
 package br.com.eleonardoro.tictactoe.core;
 
 import br.com.eleonardoro.tictactoe.Constants;
+import br.com.eleonardoro.tictactoe.score.ScoreManager;
 import br.com.eleonardoro.tictactoe.ui.UI;
 
 public class Game {
@@ -8,8 +9,10 @@ public class Game {
 	private Board board = new Board();
 	private Player[] players = new Player[Constants.SYMBOL_PLAYERS.length];
 	private int currentPlayerIndex = -1;
+	private ScoreManager scoreManager;
 	
 	public void play() {
+		scoreManager = createScoreManager();
 		
 		UI.printGameTitle();
 		
@@ -50,6 +53,8 @@ public class Game {
 			UI.printText("It's a Duce!");
 		} else {
 			UI.printText("The Player '" + winner.getName() + "' won the Game!");
+			
+			scoreManager.saveScore(winner);
 		}
 		
 		UI.printNewLine();
@@ -67,11 +72,14 @@ public class Game {
 		
 		String name = UI.readInput("Player " + (index + 1) + " => ");
 		char symbol = Constants.SYMBOL_PLAYERS[index];
+		Player player = new Player(name, board, symbol);
 		
-		Player player = new Player(
-				name, 
-				board, 
-				symbol);
+		Integer score = scoreManager.getScore(player);
+		
+		if(score != null) {
+			UI.printNewLine();
+			UI.printText("The player '" + name + "' already have " + score + " victories");
+		}
 		
 		UI.printText("The Player '" + name + "' uses the symbol '" + symbol + "'");
 		
@@ -88,5 +96,9 @@ public class Game {
 		
 		currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
 		return players[currentPlayerIndex];
+	}
+	
+	private ScoreManager createScoreManager() {
+		return null;
 	}
 }
