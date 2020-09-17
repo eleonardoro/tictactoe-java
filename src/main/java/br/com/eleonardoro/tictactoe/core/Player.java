@@ -14,11 +14,11 @@ public class Player {
 		this.symbol = symbol;
 	}
 
-	private Move inputMove() {
+	private Move inputMove() throws InvalidMoveException {
 		return new Move(UI.readInput("Jogador '" + name + "' => "));
 	}
 	
-	public boolean play() {
+	public boolean play() throws InvalidMoveException {
 		Move move = inputMove();
 		
 		return board.play(this, move);

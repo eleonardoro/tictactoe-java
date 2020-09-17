@@ -5,9 +5,14 @@ public class Move {
 	private int i;
 	private int j;
 	
-	public Move(String moveStr) {
-		this.i = Integer.parseInt(moveStr.split(",")[0]);
-		this.j = Integer.parseInt(moveStr.split(",")[1]);
+	public Move(String moveStr) throws InvalidMoveException {
+		try {
+			this.i = Integer.parseInt(moveStr.split(",")[0]);
+			this.j = Integer.parseInt(moveStr.split(",")[1]);
+		
+		}catch(Exception e) {
+			throw new InvalidMoveException("A jogada é inválida!");
+		}
 	}
 	
 	public int getI() {

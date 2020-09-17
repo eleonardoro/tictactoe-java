@@ -24,7 +24,15 @@ public class Game {
 		while(!gameEnded) {
 			board.print();
 			
-			boolean sequenceFound = currentPlayer.play();
+			boolean sequenceFound;
+			
+			try {
+				sequenceFound = currentPlayer.play();
+			} catch (InvalidMoveException e) {
+				UI.printNewLine();
+				UI.printText("ERRO: " + e.getMessage());
+				continue;
+			}
 			
 			if(sequenceFound) {
 				gameEnded = true;
