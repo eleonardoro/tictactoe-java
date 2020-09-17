@@ -11,7 +11,7 @@ public class Move {
 			this.j = Integer.parseInt(moveStr.split(",")[1]);
 		
 		}catch(Exception e) {
-			throw new InvalidMoveException("A jogada é inválida!");
+			throw new InvalidMoveException("The play is invalid!");
 		}
 	}
 	

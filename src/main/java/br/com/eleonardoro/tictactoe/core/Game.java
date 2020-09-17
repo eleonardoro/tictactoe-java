@@ -30,7 +30,7 @@ public class Game {
 				sequenceFound = currentPlayer.play();
 			} catch (InvalidMoveException e) {
 				UI.printNewLine();
-				UI.printText("ERRO: " + e.getMessage());
+				UI.printText("ERROR: " + e.getMessage());
 				continue;
 			}
 			
@@ -65,7 +65,7 @@ public class Game {
 	private Player createPlayer(int index) {
 		UI.printNewLine();
 		
-		String name = UI.readInput("Jogador " + (index + 1) + " => ");
+		String name = UI.readInput("Player " + (index + 1) + " => ");
 		char symbol = Constants.SYMBOL_PLAYERS[index];
 		
 		Player player = new Player(
@@ -73,7 +73,7 @@ public class Game {
 				board, 
 				symbol);
 		
-		UI.printText("O jogador '" + name + "' vai usar o símbolo '" + symbol + "'");
+		UI.printText("The Player '" + name + "' uses the symbol '" + symbol + "'");
 		
 		return player;
 	}

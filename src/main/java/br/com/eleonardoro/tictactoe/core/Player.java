@@ -15,7 +15,7 @@ public class Player {
 	}
 
 	private Move inputMove() throws InvalidMoveException {
-		return new Move(UI.readInput("Jogador '" + name + "' => "));
+		return new Move(UI.readInput("Player '" + name + "' => "));
 	}
 	
 	public boolean play() throws InvalidMoveException {

@@ -52,11 +52,19 @@ public class Board {
 		return true;
 	}
 	
-	public boolean play(Player player, Move move) {
+	public boolean play(Player player, Move move) throws InvalidMoveException {
+		int i = move.getI();
+		int j = move.getJ();
 
-		//TODO validar os movimentos
+		if(i < 0 || j < 0 || i >= matrix.length || j >= matrix.length) {
+			throw new InvalidMoveException("The play range is invalid!");
+		}
 		
-		matrix[move.getI()][move.getJ()] = player.getSymbol();
+		if(matrix[i][j] != ' ') {
+			throw new InvalidMoveException("This move has already been made!");
+		}
+		
+		matrix[i][j] = player.getSymbol();
 
 		return checkRows(player) || checkCols(player) || checkFirstDiagonal(player) || checkSecondDiagonal(player);
 		
@@ -110,7 +118,7 @@ public class Board {
 	}
 	
 	private boolean checkSecondDiagonal(Player player) {
-		for (int i = Constants.BOARD_SIZE - 1, j = 0; i >= 0 ; i--, j++) {
+		for (int i = Constants.BOARD_SIZE - 1; i >= 0 ; i--) {
 			if(matrix[i][i] != player.getSymbol()) 
 				return false;
 		}
