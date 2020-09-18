@@ -1,6 +1,9 @@
 package br.com.eleonardoro.tictactoe.core;
 
+import java.io.IOException;
+
 import br.com.eleonardoro.tictactoe.Constants;
+import br.com.eleonardoro.tictactoe.score.FileScoreManager;
 import br.com.eleonardoro.tictactoe.score.ScoreManager;
 import br.com.eleonardoro.tictactoe.ui.UI;
 
@@ -11,7 +14,7 @@ public class Game {
 	private int currentPlayerIndex = -1;
 	private ScoreManager scoreManager;
 	
-	public void play() {
+	public void play() throws IOException {
 		scoreManager = createScoreManager();
 		
 		UI.printGameTitle();
@@ -78,7 +81,7 @@ public class Game {
 		
 		if(score != null) {
 			UI.printNewLine();
-			UI.printText("The player '" + name + "' already have " + score + " victories");
+			UI.printText("The player '" + name + "' already have " + score + " victory(ies)");
 		}
 		
 		UI.printText("The Player '" + name + "' uses the symbol '" + symbol + "'");
@@ -98,7 +101,7 @@ public class Game {
 		return players[currentPlayerIndex];
 	}
 	
-	private ScoreManager createScoreManager() {
-		return null;
+	private ScoreManager createScoreManager() throws IOException {
+		return new FileScoreManager();
 	}
 }
